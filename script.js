@@ -21,8 +21,9 @@ divs.forEach((div)=>{
         const targetDiv = e.target;
 
         
-        const temp = draggedDiv.style.backgroundImage;
-        draggedDiv.style.backgroundImage = targetDiv.style.backgroundImage;
-        targetDiv.style.backgroundImage = temp;
+       const temp = draggedDiv.innerHTML;
+
+        draggedDiv.innerHTML = targetDiv.innerHTML;
+        targetDiv.innerHTML = temp;
     });
 });
