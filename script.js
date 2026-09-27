@@ -1,41 +1,34 @@
 const images = document.querySelectorAll(".image");
+let draggedDiv=null
+divs.forEach(function (div) {
 
-images.forEach(function (image) {
+    div.draggable = true;
 
-    
-    image.draggable = true;
-
-   
-    image.addEventListener("dragstart", function (e) {
-        e.dataTransfer.setData("text/plain", e.target.id);
+    div.addEventListener("dragstart", function (e) {
+        draggedDiv = e.currentTarget;
     });
 
-
-    image.addEventListener("dragover", function (e) {
+    div.addEventListener("dragover", function (e) {
         e.preventDefault();
     });
 
-
-    image.addEventListener("drop", function (e) {
+    div.addEventListener("drop", function (e) {
         e.preventDefault();
 
-        const draggedId = e.dataTransfer.getData("text/plain");
-
-        const draggedDiv = document.getElementById(draggedId);
         const targetDiv = e.currentTarget;
 
         if (draggedDiv === targetDiv) {
             return;
         }
 
-        const draggedImage =
-            getComputedStyle(draggedDiv).backgroundImage;
-
-        const targetImage =
-            getComputedStyle(targetDiv).backgroundImage;
+        
+        const draggedContent = draggedDiv.innerHTML;
 
        
-        draggedDiv.style.backgroundImage = targetImage;
-        targetDiv.style.backgroundImage = draggedImage;
+        const targetContent = targetDiv.innerHTML;
+
+      
+        draggedDiv.innerHTML = targetContent;
+        targetDiv.innerHTML = draggedContent;
     });
 });
