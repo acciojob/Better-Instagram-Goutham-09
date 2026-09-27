@@ -1,36 +1,41 @@
-//your code here
-const divs = document.querySelectorAll(".image")
+const images = document.querySelectorAll(".image");
 
-divs.forEach((div)=>{
-	div.addEventListener("dragstart", function (e) {
-        e.dataTransfer.setData("text", e.target.id);
-    });
+images.forEach(function (image) {
 
     
-    div.addEventListener("dragover", function (e) {
+    image.draggable = true;
+
+   
+    image.addEventListener("dragstart", function (e) {
+        e.dataTransfer.setData("text/plain", e.target.id);
+    });
+
+
+    image.addEventListener("dragover", function (e) {
         e.preventDefault();
     });
 
-   
-    div.addEventListener("drop", function (e) {
+
+    image.addEventListener("drop", function (e) {
         e.preventDefault();
 
-        const draggedId = e.dataTransfer.getData("text");
+        const draggedId = e.dataTransfer.getData("text/plain");
 
         const draggedDiv = document.getElementById(draggedId);
         const targetDiv = e.currentTarget;
-		if (draggedDiv === targetDiv) {
+
+        if (draggedDiv === targetDiv) {
             return;
         }
 
-       const parent = targetDiv.parentNode;
+        const draggedImage =
+            getComputedStyle(draggedDiv).backgroundImage;
+
+        const targetImage =
+            getComputedStyle(targetDiv).backgroundImage;
 
        
-        const draggedNext = draggedDiv.nextSibling;
-        const targetNext = targetDiv.nextSibling;
-
-    
-        parent.insertBefore(draggedDiv, targetNext);
-        parent.insertBefore(targetDiv, draggedNext);
+        draggedDiv.style.backgroundImage = targetImage;
+        targetDiv.style.backgroundImage = draggedImage;
     });
 });
