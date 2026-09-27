@@ -1,5 +1,5 @@
 //your code here
-const divs = document.querySelectorAll("div")
+const divs = document.querySelectorAll(".image")
 
 divs.forEach((div)=>{
 	div.addEventListener("dragstart", function (e) {
@@ -18,12 +18,19 @@ divs.forEach((div)=>{
         const draggedId = e.dataTransfer.getData("text");
 
         const draggedDiv = document.getElementById(draggedId);
-        const targetDiv = e.target;
+        const targetDiv = e.currentTarget;
+		if (draggedDiv === targetDiv) {
+            return;
+        }
 
-        
-       const temp = draggedDiv.innerHTML;
+       const parent = targetDiv.parentNode;
 
-        draggedDiv.innerHTML = targetDiv.innerHTML;
-        targetDiv.innerHTML = temp;
+       
+        const draggedNext = draggedDiv.nextSibling;
+        const targetNext = targetDiv.nextSibling;
+
+    
+        parent.insertBefore(draggedDiv, targetNext);
+        parent.insertBefore(targetDiv, draggedNext);
     });
 });
