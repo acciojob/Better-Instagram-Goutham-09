@@ -1,18 +1,20 @@
 const images = document.querySelectorAll(".image");
-let draggedDiv=null
-divs.forEach(function (div) {
 
-    div.draggable = true;
+let draggedDiv = null;
 
-    div.addEventListener("dragstart", function (e) {
+images.forEach(function (image) {
+
+    image.setAttribute("draggable", "true");
+
+    image.addEventListener("dragstart", function (e) {
         draggedDiv = e.currentTarget;
     });
 
-    div.addEventListener("dragover", function (e) {
+    image.addEventListener("dragover", function (e) {
         e.preventDefault();
     });
 
-    div.addEventListener("drop", function (e) {
+    image.addEventListener("drop", function (e) {
         e.preventDefault();
 
         const targetDiv = e.currentTarget;
@@ -21,14 +23,13 @@ divs.forEach(function (div) {
             return;
         }
 
-        
-        const draggedContent = draggedDiv.innerHTML;
+        const draggedImage =
+            getComputedStyle(draggedDiv).backgroundImage;
 
-       
-        const targetContent = targetDiv.innerHTML;
+        const targetImage =
+            getComputedStyle(targetDiv).backgroundImage;
 
-      
-        draggedDiv.innerHTML = targetContent;
-        targetDiv.innerHTML = draggedContent;
+        draggedDiv.style.backgroundImage = targetImage;
+        targetDiv.style.backgroundImage = draggedImage;
     });
 });
