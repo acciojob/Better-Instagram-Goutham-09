@@ -23,13 +23,13 @@ images.forEach(function (image) {
             return;
         }
 
-        const draggedImage =
-            getComputedStyle(draggedDiv).backgroundImage;
+        const draggedBackground =
+            window.getComputedStyle(draggedImage).backgroundImage;
 
-        const targetImage =
-            getComputedStyle(targetDiv).backgroundImage;
+        const targetBackground =
+            window.getComputedStyle(targetImage).backgroundImage;
 
-        draggedDiv.style.backgroundImage = targetImage;
-        targetDiv.style.backgroundImage = draggedImage;
+        draggedImage.style.backgroundImage = targetBackground;
+        targetImage.style.backgroundImage = draggedBackground;
     });
 });
